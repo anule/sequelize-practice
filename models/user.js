@@ -16,6 +16,14 @@ const User = db.define('user', {
       if (this.age < 18) throw new Error('Validation min on age failed');
     }
   }
+}, {
+  getterMethods: {
+    fullName() {
+      if (this.first && this.last){
+        return this.first + ' ' + this.last;
+      }
+    }
+  }
 });
 
 User.prototype.haveBirthday = function(){
