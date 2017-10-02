@@ -12,16 +12,13 @@ const User = db.define('user', {
     noEmail() {
       if (!this.email) throw new Error('email cannot be null');
     },
-    minEighteen() {
+    minAgeEighteen() {
       if (this.age < 18) throw new Error('Validation min on age failed');
     }
-  }
-}, {
+  },
   getterMethods: {
-    fullName() {
-      if (this.first && this.last){
-        return this.first + ' ' + this.last;
-      }
+    fullName: function() {
+      return this.getDataValue('first') + ' ' + this.getDataValue('last');
     }
   }
 });
@@ -30,4 +27,6 @@ User.prototype.haveBirthday = function(){
   this.age = this.age + 1;
   return this.save();
 };
+
+console.log(User);
 module.exports = User;
